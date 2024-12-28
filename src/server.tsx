@@ -1,51 +1,39 @@
 import express from 'express';
-import { renderToPipeableStream } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import App from './App';
-import { Suspense } from 'react';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
-// Serve static files
+// Serve static files from dist/client
 app.use(express.static('dist/client'));
 
-// HTML template function
-const template = (content: string) => `
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>React SSR App</title>
-  </head>
-  <body>
-    <div id="root">${content}</div>
-    <script src="/client.js"></script>
-  </body>
-</html>
-`;
-
 app.get('*', (req, res) => {
-  const { pipe } = renderToPipeableStream(
+  const content = renderToString(
     <StaticRouter location={req.url}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <App />
-      </Suspense>
-    </StaticRouter>,
-    {
-      bootstrapScripts: ['/client.js'],
-      onShellReady() {
-        res.setHeader('content-type', 'text/html');
-        pipe(res);
-      },
-      onError(error) {
-        console.error(error);
-        res.status(500).send('Something went wrong');
-      }
-    }
+      <App />
+    </StaticRouter>
   );
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>React 19 SSR</title>
+      </head>
+      <body>
+        <div id="root">${content}</div>
+        <script src="/client.js"></script>
+      </body>
+    </html>
+  `;
+
+  res.send(html);
 });
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

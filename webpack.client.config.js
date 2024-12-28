@@ -2,9 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env) => ({
-  entry: './src/index.tsx',
+  entry: './src/client.tsx',
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
@@ -59,7 +60,9 @@ module.exports = (env) => ({
     ],
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist/client'),
+    filename: 'client.js',
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -69,6 +72,11 @@ module.exports = (env) => ({
     new MiniCssExtractPlugin({
       filename: env.production ? "[name].[hash].css" : "[name].css",
       chunkFilename: env.production ?  "[id].[hash].css" : "[id].css",
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: env.production ? 'static' : 'server',
+      openAnalyzer: env.production ? false : true,
+      reportFilename: 'bundle-report.html'
     }),
     // new CopyPlugin({
     //   patterns: [
