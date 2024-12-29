@@ -25,6 +25,20 @@ module.exports = {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: ['null-loader'],
       },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+                exportOnlyLocals: true,
+              },
+            },
+          },
+        ],
+      },
     ],
   },
 }; 

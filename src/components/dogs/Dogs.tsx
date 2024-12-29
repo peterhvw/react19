@@ -1,14 +1,8 @@
 import { useEffect } from "react";
 import { useDogs } from "../../api/useDogs";
-// import styles from "./Dogs.module.css";
-const styles = {
-  dogsGrid: "dogsGrid",
-  dogsCard: "dogsCard",
-  dogsImage: "dogsImage",
-  dogsInfo: "dogsInfo"
-}
+import * as styles from "./Dogs.module.css";
 
- function Dogs ({breed}: {breed: string}) {
+function Dogs ({breed}: {breed: string}) {
   const { dogs, isLoading, error, fetchDogs } = useDogs({breed});
 
   useEffect(() => {
@@ -17,8 +11,6 @@ const styles = {
 
   if (isLoading) return null;
   if (error) return <div>Error: {error}</div>;
-
-
 
   return (
     <div className={styles.dogsGrid}>

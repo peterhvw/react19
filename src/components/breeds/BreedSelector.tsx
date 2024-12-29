@@ -1,10 +1,7 @@
 import { FC } from 'react';
 import { useBreeds } from '../../api/useBreeds';
-// import styles from './BreedSelector.module.css';
-const styles = {
-  selectContainer: "selectContainer",
-  select: "select"
-}
+import * as styles from './BreedSelector.module.css';
+ 
 
 interface BreedSelectorProps {
   setBreed: (breed: string) => void;

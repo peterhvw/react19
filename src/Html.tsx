@@ -1,18 +1,18 @@
 interface HtmlProps {
   children: React.ReactNode;
+  cssFiles?: string[];
 }
 
-export default function Html({ children }: HtmlProps) {
+export default function Html({ children, cssFiles = [] }: HtmlProps) {
   return (
     <html>
       <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Your App</title>
+        {cssFiles.map((file) => (
+          <link key={file} rel="stylesheet" href={file} />
+        ))}
       </head>
       <body>
         <div id="root">{children}</div>
-
       </body>
     </html>
   );

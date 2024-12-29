@@ -2,6 +2,7 @@ const path = require('path');
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => ({
   entry: './src/client.tsx',
@@ -40,11 +41,25 @@ module.exports = (env) => ({
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+        ],
+      },
     ],
   },
   output: {
     path: path.join(__dirname, 'dist/client'),
-    filename: 'client.js',
+    filename: '[name].[contenthash].js',
     publicPath: '/'
   },
   plugins: [
@@ -57,6 +72,9 @@ module.exports = (env) => ({
       fileName: 'manifest.json',
       publicPath: '/',
       writeToFileEmit: true,
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
     }),
   ],
 });

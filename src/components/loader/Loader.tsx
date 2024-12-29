@@ -1,7 +1,5 @@
-// import styles from './Loader.module.css';
-const styles = {
-  loader: "loader"
-}
+import * as styles from './Loader.module.css';
+
 
 const Loader = () => {
   return <span className={styles.loader}></span>;
