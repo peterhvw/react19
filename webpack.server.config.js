@@ -11,7 +11,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'server.js'
+    filename: 'server.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -24,7 +25,6 @@ module.exports = {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: ['null-loader'],
       },
-
     ],
   },
 }; 

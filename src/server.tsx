@@ -13,6 +13,7 @@ app.get('*', (req, res) => {
   const { pipe } = renderToPipeableStream(
     <Html>
       <StaticRouter location={req.url}>
+        
         <App />
       </StaticRouter>
     </Html>

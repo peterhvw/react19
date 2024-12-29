@@ -11,7 +11,8 @@ export default function Html({ children }: HtmlProps) {
         <title>Your App</title>
       </head>
       <body>
-        {children}
+        <div id="root">{children}</div>
+
       </body>
     </html>
   );
