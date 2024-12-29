@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect } from 'react';
 
 interface DogApiResponse {
@@ -13,10 +14,12 @@ export const useBreeds = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+
     const fetchBreeds = async () => {
       try {
         const response = await fetch('https://dog.ceo/api/breeds/list/all');
         const data: DogApiResponse = await response.json();
+  
         
         // Extract just the breed names (object keys) into an array
         const breedList = Object.keys(data.message);

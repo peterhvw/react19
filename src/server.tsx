@@ -50,6 +50,7 @@ app.get('*', async (req, res) => {
     let flightResponse = '';
     const flightStream = new stream.Writable({
       write: (chunk, encoding, next) => {
+
         flightResponse += chunk;
         next();
       }

@@ -1,3 +1,4 @@
+'use client';
 import { hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -17,8 +18,10 @@ const stream = new ReadableStream({
   },
 });
 
+
 // Convert the RSC stream into React elements
 createFromReadableStream(stream).then((ReactTree: any) => {
+  console.log({ReactTree});
   hydrateRoot(
     document,
     <Html initialData={initialDogs}>

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { Suspense, use, useState } from "react";
 import Dogs from "../../components/dogs/Dogs";
 import BreedSelector from "../../components/breeds/BreedSelector";

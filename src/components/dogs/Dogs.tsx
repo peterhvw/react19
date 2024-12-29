@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useTransition } from "react";
 import { useDogs } from "../../api/useDogs";
 import * as styles from "./Dogs.module.css";

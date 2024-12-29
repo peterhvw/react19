@@ -1,4 +1,4 @@
-import { FC } from 'react';
+'use client';
 import { useBreeds } from '../../api/useBreeds';
 import * as styles from './BreedSelector.module.css';
  
@@ -7,7 +7,7 @@ interface BreedSelectorProps {
   setBreed: (breed: string) => void;
 }
 
-const BreedSelector: FC<BreedSelectorProps> = ({ setBreed }) => {
+const BreedSelector = ({ setBreed }: BreedSelectorProps) => {
   const { breeds } = useBreeds();
 
   return (
