@@ -1,13 +1,27 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+// import { getDogs } from './api/getDogs';
 
-const Home = lazy(() => import('./home/Home'));
-const Browse = lazy(() => import('./browse/Browse'));
-const PLP = lazy(() => import('./plp/Plp'));
+const Home = lazy(() => import('./pages/home/Home'));
+const Browse = lazy(() => import('./pages/browse/Browse'));
+const PLP = lazy(() => import('./pages/plp/Plp'));
 
-const App = () => {
+
+// const getPageData = (pathname: string) => {
+//   if (pathname === '/') return  "";
+//   if (pathname === '/browse') return  getDogs("boxer");
+//   if (pathname === '/plp') return "";
+//   return null;
+// };
+
+
+ function App() {
+  // const location = useLocation();
+  
+  // const pageData = getPageData(location.pathname);
+
   return (
-    <div id="app">
+    <>
       <nav>
         <ul>
           <Link to="/">Home</Link>
@@ -42,7 +56,7 @@ const App = () => {
           }
         />
       </Routes>
-    </div>
+    </>
   );
 };
 

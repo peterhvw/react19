@@ -1,0 +1,54 @@
+.selectContainer {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.select {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #374151;
+  background-color: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select:hover {
+  border-color: #9ca3af;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.select option {
+  padding: 8px;
+  font-size: 1rem;
+}
+
+/* Custom dropdown arrow */
+.selectContainer::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #6b7280;
+  pointer-events: none;
+}
+
+/* Hover state for the arrow */
+.selectContainer:hover::after {
+  border-top-color: #4b5563;
+} 

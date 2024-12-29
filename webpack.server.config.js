@@ -21,13 +21,10 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.scss$/i,
-        use: ['null-loader'],
-      },
-      {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: ['null-loader'],
       },
+
     ],
   },
 }; 
