@@ -1,10 +1,11 @@
 interface HtmlProps {
   children: React.ReactNode;
   cssFiles?: string[];
-  initialData?: any;
+  initialData: any;
+  rscPayload?: string;
 }
 
-export default function Html({ children, cssFiles = [], initialData }: HtmlProps) {
+export default function Html({ children, cssFiles = [], initialData, rscPayload }: HtmlProps) {
   return (
     <html>
       <head>
@@ -17,7 +18,16 @@ export default function Html({ children, cssFiles = [], initialData }: HtmlProps
         {initialData && (
           <script
             dangerouslySetInnerHTML={{
-              __html: `window.__INITIAL_DOGS__ = ${JSON.stringify(initialData)};`,
+              __html: `window.__INITIAL_DATA__ = ${JSON.stringify(initialData)}`
+            }}
+          />
+        )}
+        {rscPayload && (
+          <script
+            id="react-flight"
+            type="react/flight"
+            dangerouslySetInnerHTML={{
+              __html: rscPayload
             }}
           />
         )}
