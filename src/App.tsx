@@ -1,24 +1,14 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-// import { getDogs } from './api/getDogs';
+import {  Dog } from './api/getDogs';
 
 const Home = lazy(() => import('./pages/home/Home'));
 const Browse = lazy(() => import('./pages/browse/Browse'));
 const PLP = lazy(() => import('./pages/plp/Plp'));
 
 
-// const getPageData = (pathname: string) => {
-//   if (pathname === '/') return  "";
-//   if (pathname === '/browse') return  getDogs("boxer");
-//   if (pathname === '/plp') return "";
-//   return null;
-// };
-
-
- function App() {
-  // const location = useLocation();
-  
-  // const pageData = getPageData(location.pathname);
+function App({ initialDogs = null }: { initialDogs?: Dog[] | null }) {
+ 
 
   return (
     <>
@@ -43,7 +33,7 @@ const PLP = lazy(() => import('./pages/plp/Plp'));
           path="/browse"
           element={
             <Suspense fallback={<div>Loading browse...</div>}>
-              <Browse />
+              <Browse initialDogs={initialDogs} />
             </Suspense>
           }
         />

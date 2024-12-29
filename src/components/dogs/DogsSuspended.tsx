@@ -1,20 +1,12 @@
 import { useEffect, useTransition } from "react";
-import { useDogs } from "../../api/useDogs";
+import { useSuspendableDogs } from "../../api/useSuspendableDogs";
 import * as styles from "./Dogs.module.css";
 import { Dog } from "../../api/getDogs";
-import Loader from "../loader/Loader";
 
 function Dogs ({breed, initialDogs}: {breed: string | null, initialDogs: Dog[] | null}) {
-  const { dogs, isLoading, fetchDogs } = useDogs();
 
-  useEffect(() => {
-    if (breed) {
-        fetchDogs(breed);
-    }
-  }, [breed]);
-
-
-  const allDogs = dogs.length > 0 ? dogs : initialDogs ?? [];
+  const dogs = useSuspendableDogs(breed);
+  const allDogs =  dogs || initialDogs || [];
 
   return (
     <div className={styles.dogsContainer}>
@@ -31,13 +23,6 @@ function Dogs ({breed, initialDogs}: {breed: string | null, initialDogs: Dog[] |
           </div>
         ))}
       </div>
-      {isLoading && (
-        <div className={styles.overlay}>
-          <div className={styles.spinner}>
-            <Loader />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

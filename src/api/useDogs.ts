@@ -16,12 +16,12 @@ interface ApiResponse {
 const dogNames = ['Max', 'Luna', 'Rocky', 'Bella', 'Duke', 'Daisy', 'Thor', 'Molly'];
 const ARTIFICIAL_DELAY = 1000; // 1 second delay
 
-export const useDogs = ({breed}: {breed: string}) => {
+export const useDogs = () => {
   const [dogs, setDogs] = useState<Dog[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchDogs = async () => {
+  const fetchDogs = async (breed: string | null) => {
     setIsLoading(true);
     setError(null);
     

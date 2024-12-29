@@ -1,9 +1,10 @@
 interface HtmlProps {
   children: React.ReactNode;
   cssFiles?: string[];
+  initialData?: any;
 }
 
-export default function Html({ children, cssFiles = [] }: HtmlProps) {
+export default function Html({ children, cssFiles = [], initialData }: HtmlProps) {
   return (
     <html>
       <head>
@@ -13,6 +14,13 @@ export default function Html({ children, cssFiles = [] }: HtmlProps) {
       </head>
       <body>
         <div id="root">{children}</div>
+        {initialData && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.__INITIAL_DOGS__ = ${JSON.stringify(initialData)};`,
+            }}
+          />
+        )}
       </body>
     </html>
   );

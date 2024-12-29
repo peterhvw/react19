@@ -1,5 +1,5 @@
 
-interface Dog {
+export interface Dog {
     imageUrl: string;
     name: string;
     age: number;
@@ -7,7 +7,7 @@ interface Dog {
     color: 'yellow' | 'striped';
   }
   
-  interface ApiResponse {
+  export interface ApiResponse {
     message: string[];
     status: string;
   }
@@ -21,10 +21,14 @@ export const getDogs = async (breed: string) => {
     if (data.status === 'success') {
       const enrichedDogs: Dog[] = data.message.map(imageUrl => ({
         imageUrl,
-        name: dogNames[Math.floor(Math.random() * dogNames.length)],
-        age: Math.floor(Math.random() * 12) + 1, // 1-12 years
-        gender: Math.random() > 0.5 ? 'male' : 'female',
-        color: Math.random() > 0.5 ? 'yellow' : 'striped'
+        name: "asdf",
+        age: 1,
+        gender: "male",
+        color: "yellow",
+        // name: dogNames[Math.floor(Math.random() * dogNames.length)],
+        // age: Math.floor(Math.random() * 12) + 1, // 1-12 years
+        // gender: Math.random() > 0.5 ? 'male' : 'female',
+        // color: Math.random() > 0.5 ? 'yellow' : 'striped'
       }));
       return enrichedDogs;
     } else {
