@@ -1,10 +1,12 @@
 interface HtmlProps {
   children: React.ReactNode;
   cssFiles?: string[];
-  initialData?: any;
+  initialHomeData?: any;
+  initialBrowseData?: any;
+  initialPlpData?: any;
 }
 
-export default function Html({ children, cssFiles = [], initialData }: HtmlProps) {
+export default function Html({ children, cssFiles = [], initialHomeData, initialBrowseData, initialPlpData }: HtmlProps) {
   return (
     <html>
       <head>
@@ -14,10 +16,24 @@ export default function Html({ children, cssFiles = [], initialData }: HtmlProps
       </head>
       <body>
         <div id="root">{children}</div>
-        {initialData && (
+        {initialHomeData && (
           <script
             dangerouslySetInnerHTML={{
-              __html: `window.__INITIAL_DOGS__ = ${JSON.stringify(initialData)};`,
+              __html: `window.__INITIAL_HOME_DATA__ = ${JSON.stringify(initialHomeData)};`,
+            }}
+          />
+        )}
+        {initialBrowseData && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.__INITIAL_BROWSE_DATA__ = ${JSON.stringify(initialBrowseData)};`,
+            }}
+          />
+        )}
+        {initialPlpData && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.__INITIAL_PLP_DATA__ = ${JSON.stringify(initialPlpData)};`,
             }}
           />
         )}

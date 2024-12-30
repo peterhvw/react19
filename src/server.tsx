@@ -19,10 +19,10 @@ app.use(express.static('dist/client'));
 
 app.get('*', async (req, res) => {
   // Fetch data for browse route
-  let initialDogs = null;
+  let initialBrowseData = null;
   if (req.url.startsWith('/browse')) {
     try {
-      initialDogs = await getDogs("boxer");
+      initialBrowseData = await getDogs("boxer");
     } catch (error) {
       console.error('Failed to fetch initial dogs:', error);
     }
@@ -50,9 +50,9 @@ app.get('*', async (req, res) => {
   const jsFiles = routeSpecificFiles(allJsFiles);
 
   const { pipe } = renderToPipeableStream(
-    <Html cssFiles={cssFiles} initialData={initialDogs}>
+    <Html cssFiles={cssFiles} initialHomeData={null} initialBrowseData={initialBrowseData} initialPlpData={null}>
       <StaticRouter location={req.url}>        
-        <App initialDogs={initialDogs} />
+        <App initialHomeData={null} initialBrowseData={initialBrowseData} initialPlpData={null} />
       </StaticRouter>
     </Html>,
     {

@@ -8,7 +8,7 @@ import DogsSuspended from "../../components/dogs/DogsSuspended";
 
 
 
-const Browse = ({initialDogs}: {initialDogs:  Dog[] | null}) => {
+const Browse = ({initialBrowseData}: {initialBrowseData:  Dog[] | null}) => {
   const [breed, setBreed] = useState<string|null>(null);
 
   return (
@@ -26,7 +26,7 @@ const Browse = ({initialDogs}: {initialDogs:  Dog[] | null}) => {
       <hr />
       <hr />
       <br />
-        <Dogs breed={breed} initialDogs={initialDogs} />
+        <Dogs breed={breed} initialDogs={initialBrowseData} />
     </>
     </div>
   );

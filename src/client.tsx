@@ -4,13 +4,24 @@ import App from './App';
 import Html from './Html';
 
 // Get the initial data from a script tag or window object
-const initialDogs = (window as any).__INITIAL_DOGS__;
+const initialHomeData = (window as any).__INITIAL_HOME_DATA__;
+const initialBrowseData = (window as any).__INITIAL_BROWSE_DATA__;
+const initialPlpData = (window as any).__INITIAL_PLP_DATA__;
 
 hydrateRoot(
   document,
   <Html>  
     <BrowserRouter>
-      <App initialDogs={initialDogs} />
+      <App initialHomeData={initialHomeData} initialBrowseData={initialBrowseData} initialPlpData={initialPlpData} />
     </BrowserRouter>
-  </Html>
+  </Html>, {
+      onUncaughtError: (error, errorInfo) => {
+        console.error('Uncaught error:', error);
+        console.error('Error info:', errorInfo);
+      },
+      onCaughtError: (error, errorInfo) => {
+        console.error('Caught error:', error);
+        console.error('Error info:', errorInfo);
+      }
+  }
 );
