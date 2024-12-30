@@ -1,4 +1,4 @@
-const PLP = () => {
+const PLP = ({initialData = null}: {initialData?:  unknown | null}) => {
   return (
     <div>
       PLP

@@ -1,53 +1,28 @@
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
-import {  Dog } from './api/getDogs';
-
-const Home = lazy(() => import('./pages/home/Home'));
-const Browse = lazy(() => import('./pages/browse/Browse'));
-const PLP = lazy(() => import('./pages/plp/Plp'));
-
+import { Routes, Route } from 'react-router-dom';
+import { Suspense } from 'react';
+import { Dog } from './api/getDogs';
+import { Navigation } from './components/Navigation';
+import { routes } from './routes';
 
 function App({ initialDogs = null }: { initialDogs?: Dog[] | null }) {
- 
-
   return (
     <>
-      <nav>
-        <ul>
-          <Link to="/">Home</Link>
-          <Link to="/browse">Browse</Link>
-          <Link to="/plp">PLP</Link>
-        </ul>
-      </nav>
-
+      <Navigation />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={<div>Loading home...</div>}>
-              <Home />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/browse"
-          element={
-            <Suspense fallback={<div>Loading browse...</div>}>
-              <Browse initialDogs={initialDogs} />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/plp"
-          element={
-            <Suspense fallback={<div>Loading plp...</div>}>
-              <PLP />
-            </Suspense>
-          }
-        />
+        {routes.map(({ path, element: Element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <Suspense fallback={<div>Loading {path}...</div>}>
+                <Element initialDogs={path === '/browse' ? initialDogs : undefined} />
+              </Suspense>
+            }
+          />
+        ))}
       </Routes>
     </>
   );
-};
+}
 
 export default App;

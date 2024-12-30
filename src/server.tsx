@@ -1,11 +1,14 @@
 import express from 'express';
 import { renderToPipeableStream } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
+import { Route, Routes, StaticRouter } from 'react-router-dom';
 import fs from 'fs';
 import path from 'path';
 import App from './App';
 import Html from './Html';
 import { getDogs } from './api/getDogs';
+import { routes } from './routes';
+import { Navigation } from './components/Navigation';
+import { Suspense } from 'react';
 
 const app = express();
 const port = 3000;
@@ -19,10 +22,10 @@ app.use(express.static('dist/client'));
 
 app.get('*', async (req, res) => {
   // Fetch data for browse route
-  let initialDogs = null;
+  let initialData = null;
   if (req.url.startsWith('/browse')) {
     try {
-      initialDogs = await getDogs("boxer");
+      initialData = await getDogs("boxer");
     } catch (error) {
       console.error('Failed to fetch initial dogs:', error);
     }
@@ -50,9 +53,22 @@ app.get('*', async (req, res) => {
   const jsFiles = routeSpecificFiles(allJsFiles);
 
   const { pipe } = renderToPipeableStream(
-    <Html cssFiles={cssFiles} initialData={initialDogs}>
+    <Html cssFiles={cssFiles}>
       <StaticRouter location={req.url}>        
-        <App initialDogs={initialDogs} />
+      <Navigation />
+      <Routes>
+        {routes.map(({ path, element: Element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <Suspense fallback={<div>Loading {path}...</div>}>
+                <Element initialData={ initialData } />
+              </Suspense>
+            }
+          />
+        ))}
+      </Routes>   
       </StaticRouter>
     </Html>,
     {

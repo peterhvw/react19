@@ -5,14 +5,15 @@ import { Dog } from "../../api/getDogs";
 import Loader from "../loader/Loader";
 
 function Dogs ({breed, initialDogs}: {breed: string | null, initialDogs: Dog[] | null}) {
-  const { dogs, isLoading, fetchDogs } = useDogs();
+  // const { dogs, isLoading, fetchDogs } = useDogs();
 
-  useEffect(() => {
-    if (breed) {
-        fetchDogs(breed);
-    }
-  }, [breed]);
-
+  // useEffect(() => {
+  //   if (breed) {
+  //       fetchDogs(breed);
+  //   }
+  // }, [breed]);
+const dogs = [];
+const isLoading = false;
 
   const allDogs = dogs.length > 0 ? dogs : initialDogs ?? [];
 

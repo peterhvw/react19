@@ -7,15 +7,14 @@ import { Dog } from "../../api/getDogs";
 import DogsSuspended from "../../components/dogs/DogsSuspended";
 
 
-
-const Browse = ({initialDogs}: {initialDogs:  Dog[] | null}) => {
-  const [breed, setBreed] = useState<string|null>(null);
+const Browse = ({initialData = null}: {initialData?:  Dog[] | null}) => {
+  // const [breed, setBreed] = useState<string|null>(null);
 
   return (
     <div>
       <h1>Browse</h1>
       <>
-      <BreedSelector setBreed={setBreed} />
+      <BreedSelector setBreed={() => {}} />
       <hr />
       <hr />
       <br />
@@ -26,7 +25,7 @@ const Browse = ({initialDogs}: {initialDogs:  Dog[] | null}) => {
       <hr />
       <hr />
       <br />
-        <Dogs breed={breed} initialDogs={initialDogs} />
+        <Dogs breed={"boxer"} initialDogs={initialData} />
     </>
     </div>
   );
