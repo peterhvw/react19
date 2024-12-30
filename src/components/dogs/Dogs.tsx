@@ -6,6 +6,7 @@ import Loader from "../loader/Loader";
 
 function Dogs ({breed, initialDogs}: {breed: string | null, initialDogs: Dog[] | null}) {
   const { dogs, isLoading, fetchDogs } = useDogs();
+  console.log(initialDogs)
 
   useEffect(() => {
     if (breed) {

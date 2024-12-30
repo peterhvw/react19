@@ -4,6 +4,7 @@ import { Dog } from './api/getDogs';
 export const Home = lazy(() => import('./pages/home/Home'));
 export const Browse = lazy(() => import('./pages/browse/Browse'));
 export const PLP = lazy(() => import('./pages/plp/Plp'));
+export const ActionState = lazy(() => import('./pages/ActionState/ActionState'));
 
 export interface RouteConfig {
   path: string;
@@ -30,5 +31,10 @@ export const routes = (initialHomeData?:  null, initialBrowseData?: Dog[] | null
     element: PLP,
     props: { initialPlpData },
     label: 'PLP'
+  },
+  {
+    path: '/action-state',
+    element: ActionState,
+    label: 'Action State'
   }
 ];

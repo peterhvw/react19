@@ -13,7 +13,11 @@ const BreedSelector: FC<BreedSelectorProps> = ({ setBreed }) => {
   return (
     <div className={styles.selectContainer}>
       <select 
-        onChange={(e) =>  setBreed(e.target.value)}
+        onChange={(e) => {
+          if (e.target.value) {
+            setBreed(e.target.value);
+          }
+        }}
         className={styles.select}
       >
         <option value="">Select a breed</option>

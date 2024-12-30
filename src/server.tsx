@@ -3,12 +3,13 @@ import { renderToPipeableStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import fs from 'fs';
 import path from 'path';
-import App from './App';
-import Html from './Html';
-import { getDogs } from './api/getDogs';
+import ServerApp from './ServerApp';
 
 const app = express();
 const port = 3000;
+
+
+
 
 // Read the manifest file to get the generated asset filenames
 const manifest = JSON.parse(
@@ -18,16 +19,6 @@ const manifest = JSON.parse(
 app.use(express.static('dist/client'));
 
 app.get('*', async (req, res) => {
-  // Fetch data for browse route
-  let initialBrowseData = null;
-  if (req.url.startsWith('/browse')) {
-    try {
-      initialBrowseData = await getDogs("boxer");
-    } catch (error) {
-      console.error('Failed to fetch initial dogs:', error);
-    }
-  }
-
   const route = req.url.split('/')[1] || 'home';
 
   // Filter assets based on route name
@@ -50,11 +41,11 @@ app.get('*', async (req, res) => {
   const jsFiles = routeSpecificFiles(allJsFiles);
 
   const { pipe } = renderToPipeableStream(
-    <Html cssFiles={cssFiles} initialHomeData={null} initialBrowseData={initialBrowseData} initialPlpData={null}>
-      <StaticRouter location={req.url}>        
-        <App initialHomeData={null} initialBrowseData={initialBrowseData} initialPlpData={null} />
+    <StaticRouter location={req.url}>
+        { /* @ts-ignore */ }        
+        <ServerApp cssFiles={cssFiles} />
       </StaticRouter>
-    </Html>,
+    ,
     {
       bootstrapScripts: jsFiles,
       onShellReady() {

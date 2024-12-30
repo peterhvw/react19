@@ -1,4 +1,4 @@
-import { cache } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Dog {
   imageUrl: string;
@@ -14,13 +14,13 @@ interface ApiResponse {
 }
 
 const dogNames = ['Max', 'Luna', 'Rocky', 'Bella', 'Duke', 'Daisy', 'Thor', 'Molly'];
-const ARTIFICIAL_DELAY = 1000; // 1 second delay
+const ARTIFICIAL_DELAY = 1000;
 
-// Cache the fetch promise
-const fetchDogsData = cache(async (breed: string | null) => {
-  // Add artificial delay
-  await new Promise(resolve => setTimeout(resolve, ARTIFICIAL_DELAY));
-  
+// Cache for storing promises
+const cache = new Map<string, Promise<Dog[]>>();
+
+async function fetchBreedImages(breed: string): Promise<Dog[]> {
+  await new Promise(r => setTimeout(r, ARTIFICIAL_DELAY));
   const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`);
   const data: ApiResponse = await response.json();
   
@@ -33,28 +33,39 @@ const fetchDogsData = cache(async (breed: string | null) => {
       color: Math.random() > 0.5 ? 'yellow' : 'striped'
     }));
   }
-  throw new Error('Failed to fetch Dogs images');
-});
+  return [];
+}
+
+
+
+ 
 
 export function useSuspendableDogs(breed: string | null): Dog[] {
   if (!breed) return [];
-  
-  // Get the promise from the cached function
-  const promise = fetchDogsData(breed);
-  
-  // Read the current status of the promise
-  const status = promise as any;
-  
-  // If the promise is pending, throw it for Suspense to catch
-  if (status.status === 'pending') {
-    throw promise;
+
+  let cached = cache.get(breed);
+  if (!cached) {
+    cached = fetchBreedImages(breed);
+    cache.set(breed, cached);
   }
-  
-  // If the promise was rejected, throw the error
-  if (status.status === 'rejected') {
-    throw status.value;
+
+  // Create a throw-able error with the promise attached
+  const error: any = new Error("Loading...");
+  error.promise = cached;
+
+  // Try to get the resolved value
+  try {
+    // @ts-ignore - this is a hack to check if promise is resolved
+    if (cached.status === 'fulfilled') {
+      // @ts-ignore - access the resolved value
+      return cached.value;
+    }
+    throw error;
+  } catch (e) {
+    if (e === error) {
+      throw e;
+    }
+    // If we get here, the promise is resolved but threw an error
+    return [];
   }
-  
-  // If the promise was fulfilled, return the value
-  return status.value;
 }
