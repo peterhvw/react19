@@ -1,4 +1,5 @@
 import { useWishlist } from '../context/WishlistContext';
+import * as styles from './WishlistSidebar.module.css';
 
 // Add Product interface
 interface Product {
@@ -12,22 +13,22 @@ function WishlistSidebar() {
   const { wishlist, removeFromWishlist } = useWishlist();
 
   return (
-    <div className="w-64 border-l p-4">
-      <h2 className="font-bold text-xl mb-4">Wishlist ({wishlist.length})</h2>
+    <div className={styles.sidebar}>
+      <h2 className={styles.title}>Wishlist ({wishlist.length})</h2>
       {wishlist.map(product => (
-        <div key={product.id} className="flex items-center gap-2 mb-2">
+        <div key={product.id} className={styles.productContainer}>
           <img 
             src={product.image} 
             alt={product.name} 
-            className="w-12 h-12 object-cover"
+            className={styles.productImage}
           />
-          <div className="flex-1">
-            <p className="font-medium">{product.name}</p>
-            <p className="text-sm text-gray-600">${product.price}</p>
+          <div className={styles.productInfo}>
+            <p className={styles.productName}>{product.name}</p>
+            <p className={styles.productPrice}>${product.price}</p>
           </div>
           <button
             onClick={() => removeFromWishlist(product.id)}
-            className="text-red-500"
+            className={styles.removeButton}
           >
             ×
           </button>

@@ -1,4 +1,5 @@
 import ProductCard from './ProductCard';
+import * as styles from './ProductGrid.module.css';
 
 // Define the Product type
 interface Product {
@@ -17,7 +18,7 @@ const products: Product[] = [
 
 function ProductGrid() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className={styles.productGrid}>
       {products.map(product => (
         <ProductCard key={product.id} product={product} />
       ))}

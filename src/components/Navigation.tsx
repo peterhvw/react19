@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
+import * as styles from './Navigation.module.css';
 
 export const Navigation = () => {
   return (
-    <nav>
-      <ul>
+    <nav className={styles.nav}>
+      <ul className={styles.list}>
         {routes().map(({ path, label }) => (
-          // <Link key={path} to={path}>{label}</Link>
-          <a key={path} href={path}>{label}</a>
+          <li key={path}>
+            <a className={styles.link} href={path}>{label}</a>
+          </li>
         ))}
       </ul>
     </nav>

@@ -3,10 +3,15 @@ import Loader from "../../components/loader/Loader";
 import ProductCard from "../../components/ProductCard";
 
 const mockProducts = [
-  { id: 1, name: 'Product 1', price: 25, category: 'electronics' },
-  { id: 2, name: 'Product 2', price: 75, category: 'clothing' },
-  { id: 3, name: 'Product 3', price: 150, category: 'electronics' },
-];
+    { id: 1, name: 'Wireless Earbuds', price: 45, category: 'electronics' },
+    { id: 2, name: 'T-Shirt', price: 25, category: 'clothing' },
+    { id: 3, name: 'Smart Watch', price: 150, category: 'electronics' },
+    { id: 4, name: 'Jeans', price: 75, category: 'clothing' },
+    { id: 5, name: 'Laptop', price: 899, category: 'electronics' },
+    { id: 6, name: 'Hoodie', price: 55, category: 'clothing' },
+    { id: 7, name: 'Bluetooth Speaker', price: 85, category: 'electronics' },
+    { id: 8, name: 'Dress', price: 95, category: 'clothing' },
+  ];
 
 export default function ProductFiltering() {
     // useActionState takes a function and initial state
@@ -75,8 +80,12 @@ export default function ProductFiltering() {
   }
   
   // Simulated API call
-  async function fetchFilteredProducts(filterParams: any) {
-    const formData = new FormData(filterParams);
+  async function fetchFilteredProducts(filterParams: FormData | any) {
+    // Check if filterParams is a FormEvent and get FormData
+    const formData = filterParams instanceof FormData 
+      ? filterParams 
+      : new FormData(filterParams.target);
+      
     const priceRange = formData.get('priceRange');
     const category = formData.get('category');
     

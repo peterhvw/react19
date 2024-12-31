@@ -4,9 +4,11 @@ import { Dog } from './api/getDogs';
 import { Navigation } from './components/Navigation';
 import { routes } from './routes';
 
+import { WishlistProvider } from "./context/WishlistContext";
+
 function App({ initialHomeData = null, initialBrowseData = null, initialPlpData = null }: { initialHomeData?: null, initialBrowseData?: Dog[] | null, initialPlpData?: null }) {
   return (
-    <>
+    <WishlistProvider>
       <Navigation />
       <Routes>
         {routes(initialHomeData, initialBrowseData, initialPlpData).map(({ path, element: Element, props }) => (
@@ -21,7 +23,7 @@ function App({ initialHomeData = null, initialBrowseData = null, initialPlpData 
           />
         ))}
       </Routes>
-    </>
+    </WishlistProvider>
   );
 }
 
