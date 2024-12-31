@@ -1,7 +1,7 @@
 import { useEffect, useTransition } from "react";
-import { useDogs } from "../../api/useDogs";
+import { useDogs } from "../../../api/useDogs";
 import * as styles from "./Dogs.module.css";
-import { Dog } from "../../api/getDogs";
+import { Dog } from "../../../api/getDogs";
 import Loader from "../loader/Loader";
 
 function Dogs ({breed, initialDogs}: {breed: string | null, initialDogs: Dog[] | null}) {

@@ -1,6 +1,6 @@
 import { useActionState } from "react";
-import Loader from "../../components/loader/Loader";
-import ProductCard from "../../components/ProductCard";
+import Loader from "../../components/old/loader/Loader";
+import ProductCard from "../../components/old/ProductCard";
 
 const mockProducts = [
     { id: 1, name: 'Wireless Earbuds', price: 45, category: 'electronics' },

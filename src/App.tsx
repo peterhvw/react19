@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Dog } from './api/getDogs';
-import { Navigation } from './components/Navigation';
+import { Navigation } from './components/old/Navigation';
 import { routes } from './routes';
 
 import { WishlistProvider } from "./context/WishlistContext";

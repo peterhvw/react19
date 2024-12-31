@@ -1,9 +1,9 @@
 'use client'
 import { Suspense, use, useEffect, useState } from "react";
-import BreedSelector from "../../components/breeds/BreedSelector";
-import Loader from "../../components/loader/Loader";
+import BreedSelector from "../../components/old/breeds/BreedSelector";
+import Loader from "../../components/old/loader/Loader";
 import { Dog } from "../../api/getDogs";
-import Dogs from "../../components/dogs/Dogs";
+import Dogs from "../../components/old/dogs/Dogs";
 
 // A component that fetches data
 const fetchApiData = (): Promise<string> => {

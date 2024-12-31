@@ -1,4 +1,4 @@
-import { useWishlist } from '../context/WishlistContext';
+import { useWishlist } from '../../context/WishlistContext';
 import * as styles from './WishlistSidebar.module.css';
 
 // Add Product interface

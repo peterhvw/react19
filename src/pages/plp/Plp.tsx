@@ -1,5 +1,5 @@
-import ProductGrid from "../../components/ProductGrid";
-import WishlistSidebar from "../../components/WishlistSidebar";
+import ProductGrid from "../../components/old/ProductGrid";
+import WishlistSidebar from "../../components/old/WishlistSidebar";
 
 const PLP = () => {
   return (

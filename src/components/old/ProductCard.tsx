@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useWishlist } from '../context/WishlistContext';
+import { useWishlist } from '../../context/WishlistContext';
 import * as styles from './ProductCard.module.css';
 
 interface Product {

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useBreeds } from '../../api/useBreeds';
+import { useBreeds } from '../../../api/useBreeds';
 import * as styles from './BreedSelector.module.css';
  
 
